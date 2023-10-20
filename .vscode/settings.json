@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "Livrable2.C": "cpp"
+        "Livrable2.C": "cpp",
+        "Workshop.C": "cpp"
     }
 }
