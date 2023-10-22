@@ -1,3 +1,11 @@
+#include <Arduino.h>
+#include <BME280I2C.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SoftwareSerial.h>
+#include <SD.h>
+#include <stdio.h>
+#include <stdlib.h>
 #define LEDPIN 7  // Définition du numéro de la broche de la LED
 #define PUSHPIN 2 // Définition du numéro de la broche du bouton
 
