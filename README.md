@@ -1,9 +1,9 @@
-# Grp4-Systemes-embarques-
-<h1>Code pour le projet 3W du Groupe 4</h1>
-<h2>Les membres de l'équipe sont :</h2>
-<ul>
-  <li>HAAS Maxime</li>
-  <li>BECHER Matis</li>
-  <li>GRASSER Alexandre</li>
-  <li>HEIDELBERGER Matteo</li>
-</ul>
+# Groupe 4 - Projet Systèmes embarqués 3W
+### Code des livrables du Groupe 4
+
+Equipe du projet:
+
+- [HAAS Maxime]((https://github.com/GHmysa))
+- [BECHER Matis](https://github.com/4Sitam4)
+- [GRASSER Alexandre](https://github.com/Xandeler)
+- [HEIDELBERGER Matteo](https://github.com/ntino67)
