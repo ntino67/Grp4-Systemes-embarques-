@@ -119,6 +119,7 @@ void modeConfig()
 void inputLuminosite()
 { 
   // Assigner à une variable "lumi" la lecture analogique de la broche A0 
+  int lumi = analogRead(A0);
   // Fonction appelée lors du mode config
   // TO DO : Ajouter le code pour configurer la luminosité
 }
