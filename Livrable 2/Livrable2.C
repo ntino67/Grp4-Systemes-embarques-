@@ -13,27 +13,34 @@
 #define INTERRUPTR 3        // Définition de la broche du bouton
 #define baudrate 9600       // Définition du baudrate
 
-typedef struct
-{                      // Définition de la structure
-    bool TEMP_AIRB;    // Activation désactivation du capteur de température de l'air
-    int MIN_TEMP_AIR;  // Définition de la température minimale de l'air acceptée par le capteur
-    int MAX_TEMP_AIR;  // Définition de la température maximale de l'air acceptée par le capteur
-    bool PRESSUREB;    // Activation désactivation du capteur de pression
-    int MIN_PRESSURE;  // Définition de la pression minimale acceptée par le capteur
-    int MAX_PRESSURE;  // Définition de la pression maximale acceptée par le capteur
-    bool HYGRB;        // Activation désactivation du capteur d'hygrométrie
-    int MIN_HYGRT;     // Définition de l'hygrométrie minimale acceptée par le capteur
-    int MAX_HYGRT;     // Définition de l'hygrométrie maximale acceptée par le capteur
-    bool LUMINB;       // Activation désactivation du capteur de luminosité
-    int MIN_LUMIN;     // Définition de la luminosité minimale acceptée par le capteur
-    int MAX_LUMIN;     // Définition de la luminosité maximale acceptée par le capteur
-    int LOG_INTERVAL;  // Définition de l'intervalle de temps entre chaque enregistrement
-    int TIMEOUT;       // Définition du temps d'attente
-    int FILE_MAX_SIZE; // Définition de la taille maximale du fichier
-} variables;           // Définition du nom de la structure
+typedef struct variables
+{                    // Définition de la structure
+  bool TEMP_AIRB;    // Activation désactivation du capteur de température de l'air
+  int MIN_TEMP_AIR;  // Définition de la température minimale de l'air acceptée par le capteur
+  int MAX_TEMP_AIR;  // Définition de la température maximale de l'air acceptée par le capteur
+  bool PRESSUREB;    // Activation désactivation du capteur de pression
+  int MIN_PRESSURE;  // Définition de la pression minimale acceptée par le capteur
+  int MAX_PRESSURE;  // Définition de la pression maximale acceptée par le capteur
+  bool HYGRB;        // Activation désactivation du capteur d'hygrométrie
+  int MIN_HYGRT;     // Définition de l'hygrométrie minimale acceptée par le capteur
+  int MAX_HYGRT;     // Définition de l'hygrométrie maximale acceptée par le capteur
+  bool LUMINB;       // Activation désactivation du capteur de luminosité
+  int MIN_LUMIN;     // Définition de la luminosité minimale acceptée par le capteur
+  int MAX_LUMIN;     // Définition de la luminosité maximale acceptée par le capteur
+  int LOG_INTERVAL;  // Définition de l'intervalle de temps entre chaque enregistrement
+  int TIMEOUT;       // Définition du temps d'attente
+  int FILE_MAX_SIZE; // Définition de la taille maximale du fichier
+} variables;         // Définition du nom de la structure
 
 void modeStandard()
-{ // Fonction du mode standard
+{                           // Fonction du mode standard
+  allumer();                // J'allume la LED pour indiquer que le mode standard est activé
+  if (file > FILE_MAX_SIZE) // Si le fichier est plein
+  {
+    copieFichier(); // Je copie le fichier
+  }
+  acquisition(); // J'acquiers les données
+
   // TO DO : Ajouter le code pour le mode standard
 }
 
@@ -98,7 +105,7 @@ void inputRTC()
 }
 
 void acquisition()
-{ // Acquisition de données avec cette fonction
+{ // Acquisition de données avec cette fonction dans le mode standard et eco
   // TO DO : Ajouter le code pour acquérir les données
 }
 
@@ -113,39 +120,93 @@ void inputButtonR()
 }
 
 void interruption_initR(void)
-{                                                                             // Fonction d'initialisation de l'interruption
-    attachInterrupt(digitalPinToInterrupt(INTERRUPTR), inputButtonR, CHANGE); // J'attache l'interruption au bouton
-    // TO DO : Ajouter le code pour le rebond du bouton
+{                                                                           // Fonction d'initialisation de l'interruption
+  attachInterrupt(digitalPinToInterrupt(INTERRUPTR), inputButtonR, CHANGE); // J'attache l'interruption au bouton
+                                                                            // TO DO : Ajouter le code pour le rebond du bouton
 }
 
 void interruption_initV(void)
-{                                                                             // Fonction d'initialisation de l'interruption
-    attachInterrupt(digitalPinToInterrupt(INTERRUPTV), inputButtonV, CHANGE); // J'attache l'interruption au bouton
-    // TO DO : Ajouter le code pour le rebond du bouton
+{                                                                           // Fonction d'initialisation de l'interruption
+  attachInterrupt(digitalPinToInterrupt(INTERRUPTV), inputButtonV, CHANGE); // J'attache l'interruption au bouton
+                                                                            // TO DO : Ajouter le code pour le rebond du bouton
 }
 
 void allumer()
 { // Fonction d'allumage de la LED
-    digitalWrite(LEDPIN, HIGH);
-    // TO DO : Ajouter le code pour allumer la LED selon le mode choisi
+  digitalWrite(LEDPIN, HIGH);
+  // TO DO : Ajouter le code pour allumer la LED selon le mode choisi
 }
 
 void eteindre()
 { // Fonction d'extinction de la LED
-    digitalWrite(LEDPIN, LOW);
+  digitalWrite(LEDPIN, LOW);
+}
+
+void copieFichier()
+{ // Fonction de copie du fichier
+  // TO DO : Ajouter le code pour copier le fichier
+}
+
+void checkGPS()
+{ // Fonction de vérification du GPS
+  // TO DO : Ajouter le code pour vérifier le GPS
+  if (/* Vérification concluante */)
+  {
+    return; // Je sors de la fonction
+  }
+  else
+  {                               // Sinon
+    Serial.println("Erreur GPS"); // J'affiche l'erreur
+    while (true)
+    {
+      allumer(); // J'allume la LED pour indiquer l'erreur (1s rouge et 1s jaune)
+    }
+  }
+}
+
+void checkCapteurs()
+{ // Fonction de vérification des capteurs
+  // TO DO : Ajouter le code pour vérifier les capteurs
+  if (/* Vérification concluante */)
+  {
+    return; // Je sors de la fonction
+  }
+  else
+  {                                    // Sinon
+    Serial.println("Erreur capteurs"); // J'affiche l'erreur
+    while (true)
+    {
+      allumer(); // J'allume la LED pour indiquer l'erreur (1s rouge et 1s verte)
+    }
+  }
+}
+
+void checkEnregistrement()
+{ // Fonction de vérification de l'enregistrement
+  // TO DO : Ajouter le code pour vérifier l'enregistrement
+}
+
+void checkSD()
+{ // Fonction de vérification de la carte SD
+  // TO DO : Ajouter le code pour vérifier la carte SD
+}
+
+void checkConsistency()
+{ // Fonction de vérification de la cohérence des données
+  // TO DO : Ajouter le code pour vérifier la cohérence des données
 }
 
 void setup()
 {
-    Serial.begin(9600);      // Initialisation port série
-    pinMode(LEDPIN, OUTPUT); // Initialisation LED
-    pinMode(BUTTONV, INPUT); // Initialisation bouton
-    pinMode(BUTTONR, INPUT); // Initialisation bouton
-    interruption_initR();    // Initialisation interruption
-    interruption_initV();    // Initialisation interruption
+  Serial.begin(9600);      // Initialisation port série
+  pinMode(LEDPIN, OUTPUT); // Initialisation LED
+  pinMode(BUTTONV, INPUT); // Initialisation bouton
+  pinMode(BUTTONR, INPUT); // Initialisation bouton
+  interruption_initR();    // Initialisation interruption
+  interruption_initV();    // Initialisation interruption
 }
 
 void loop()
 {
-    // TO DO : Ajouter le code pour que la station fonctionne
+  // TO DO : Ajouter le code pour que la station fonctionne
 }
