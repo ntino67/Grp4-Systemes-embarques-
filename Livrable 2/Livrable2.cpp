@@ -122,13 +122,13 @@ void inputButtonR()
 void interruption_initR(void)
 {                                                                           // Fonction d'initialisation de l'interruption
   attachInterrupt(digitalPinToInterrupt(INTERRUPTR), inputButtonR, CHANGE); // J'attache l'interruption au bouton
-                                                                            // TO DO : Ajouter le code pour le rebond du bouton
+  // TO DO : Ajouter le code pour le rebond du bouton
 }
 
 void interruption_initV(void)
 {                                                                           // Fonction d'initialisation de l'interruption
   attachInterrupt(digitalPinToInterrupt(INTERRUPTV), inputButtonV, CHANGE); // J'attache l'interruption au bouton
-                                                                            // TO DO : Ajouter le code pour le rebond du bouton
+  // TO DO : Ajouter le code pour le rebond du bouton
 }
 
 void allumer()
@@ -184,16 +184,52 @@ void checkCapteurs()
 void checkEnregistrement()
 { // Fonction de vérification de l'enregistrement
   // TO DO : Ajouter le code pour vérifier l'enregistrement
+  if (/* Vérification concluante */)
+  {
+    return; // Je sors de la fonction
+  }
+  else
+  {                                          // Sinon
+    Serial.println("Erreur enregistrement"); // J'affiche l'erreur
+    while (true)
+    {
+      allumer(); // J'allume la LED pour indiquer l'erreur (1s rouge et 2s blanche)
+    }
+  }
 }
 
 void checkSD()
 { // Fonction de vérification de la carte SD
   // TO DO : Ajouter le code pour vérifier la carte SD
+  if (/* Vérification concluante */)
+  {
+    return; // Je sors de la fonction
+  }
+  else
+  {                                    // Sinon
+    Serial.println("Erreur carte SD"); // J'affiche l'erreur
+    while (true)
+    {
+      allumer(); // J'allume la LED pour indiquer l'erreur (1s rouge et 1s blanche)
+    }
+  }
 }
 
 void checkConsistency()
 { // Fonction de vérification de la cohérence des données
   // TO DO : Ajouter le code pour vérifier la cohérence des données
+  if (/* Vérification concluante */)
+  {
+    return; // Je sors de la fonction
+  }
+  else
+  {                                             // Sinon
+    Serial.println("Erreur cohérence données"); // J'affiche l'erreur
+    while (true)
+    {
+      allumer(); // J'allume la LED pour indiquer l'erreur (1s rouge et 2s verte)
+    }
+  }
 }
 
 void setup()
