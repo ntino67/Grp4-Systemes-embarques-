@@ -120,13 +120,13 @@ void inputButtonR()
 }
 
 void interruption_initR(void)
-{                                                                           // Fonction d'initialisation de l'interruption
+{ // Fonction d'initialisation de l'interruption
   attachInterrupt(digitalPinToInterrupt(INTERRUPTR), inputButtonR, CHANGE); // J'attache l'interruption au bouton
   // TO DO : Ajouter le code pour le rebond du bouton
 }
 
 void interruption_initV(void)
-{                                                                           // Fonction d'initialisation de l'interruption
+{ // Fonction d'initialisation de l'interruption
   attachInterrupt(digitalPinToInterrupt(INTERRUPTV), inputButtonV, CHANGE); // J'attache l'interruption au bouton
   // TO DO : Ajouter le code pour le rebond du bouton
 }
