@@ -32,14 +32,12 @@ typedef struct variables
   int FILE_MAX_SIZE; // Définition de la taille maximale du fichier
 } variables;         // Définition du nom de la structure
 
-
-typedef struct {
-
-	float humidity;
-	float pressure;
-	float temp;
-	int luminosity;
-
+typedef struct capteurs
+{
+  float humidity;
+  float pressure;
+  float temp;
+  int luminosity;
 } capteurs;
 
 void modeStandard()
@@ -50,83 +48,62 @@ void modeStandard()
     copieFichier(); // Je copie le fichier
   }
   acquisition(); // J'acquiers les données
-
-
-
   // TO DO : Ajouter le code pour le mode standard
 }
 
 void modeEco()
-{ 
-  allumer(); // allumer la LED en BLEU
-  Mesure_inter = 0          // Initialisation de Mesure_intermediaire
+{                  // Fonction du mode économique
+  allumer();       // allumer la LED en BLEU
+  Mesure_inter = 0 // Initialisation de Mesure_intermediaire
 
-  if (file > FILE_MAX_SIZE) // Si le fichier est plein
+      if (file > FILE_MAX_SIZE) // Si le fichier est plein
   {
     copieFichier(); // Je copie le fichier
   }
   acquisition(); // J'acquiers les données
 
-  if (Mesure_inter = 0 )
+  if (Mesure_inter = 0)
   {
     Mesure_inter = 1
   }
-  else 
+  else
   {
-    Mesure_inter = 0
-    acquisition() // acquisition des valeurs GPS 
+    Mesure_inter = 0 acquisition() // acquisition des valeurs GPS
   }
-
-  inputRTC(); // Cette ligne appelle la fonction inputRTC pour collecter les données à partir du module RTC (Real Time Clock).
-	inputHumidite(); //  Cette ligne appelle la fonction inputHumidity pour collecter les données d'humidité à partir du capteur BME280. 
-	inputPression(); //  Cette ligne appelle la fonction inputPression pour collecter les données de pression atmosphérique à partir du capteur BME280.
-	inputTemperature(); // Cette ligne appelle la fonction inputTemperature pour collecter les données de température à partir du capteur BME280. 
-	inputLuminosite(); // Cette ligne appelle la fonction inputLuminosite pour collecter les données de luminosité à partir d'un capteur analogique connecté à la broche A0 de l'Arduino. 
-  
-  
-  // Fonction du mode économique
   // TO DO : Ajouter le code pour le mode économique
 }
 
 void modeMaintenance()
-{ 
+{            // Fonction du mode maitenance
   allumer(); // allumer la LED en orange
-  // désacivation de la sauvegarde du système  
+  // désacivation de la sauvegarde du système
   // Ouverture interface série
-  inputRTC(); // Cette ligne appelle la fonction inputRTC pour collecter les données à partir du module RTC (Real Time Clock).
-	inputHumidite(); //  Cette ligne appelle la fonction inputHumidity pour collecter les données d'humidité à partir du capteur BME280. 
-	inputPression(); // Cette ligne appelle la fonction inputPression pour collecter les données de pression atmosphérique à partir du capteur BME280.
-	inputTemperature(); // Cette ligne appelle la fonction inputTemperature pour collecter les données de température à partir du capteur BME280. 
-	inputLuminosite(); // Cette ligne appelle la fonction inputLuminosite pour collecter les données de luminosité à partir d'un capteur analogique connecté à la broche A0 de l'Arduino.
-	inputGPS(); 
-
-  // afficher les valeurs de chaque fonction input ci-dessus
-
-  // Fonction du mode avancé
+  // afficher les valeurs de chaque paramètres ci-dessus
   // TO DO : Ajouter le code pour le mode maintenance
 }
 
 void modeConfig()
-{ 
-  allumer(); // Allumer la LED en jaune 
-  // désactivation des capteurs 
+{            // Fonction du mode config
+  allumer(); // Allumer la LED en jaune
+  // désactivation des capteurs
   // Ouverture interface série
-
-  // Fonction du mode avancé
+  inputRTC();         // Cette ligne appelle la fonction inputRTC pour modifier les données de date et d'heure du module RTC.
+  inputHumidite();    //  Cette ligne appelle la fonction inputHumidity pour modifier les paramètres d'humidité à partir du moniteur série.
+  inputPression();    // Cette ligne appelle la fonction inputPression pour modifier les paramètres de pression à partir moniteur série.
+  inputTemperature(); // Cette ligne appelle la fonction inputTemperature pour modifier les paramètres de température à partir du moniteur série.
+  inputLuminosite();  // Cette ligne appelle la fonction inputLuminosite pour modifier les paramètres de luminosité à partir du moniteur série.
+  inputGPS();         // Cette ligne appelle la fonction inputGPS pour modifier les paramètres GPS à partir du moniteur série.
   // TO DO : Ajouter le code pour le mode config
 }
 
 void inputLuminosite()
-{ 
-  // Assigner à une variable "lumi" la lecture analogique de la broche A0 
-  // Fonction appelée lors du mode config
+{ // Fonction appelée lors du mode config
+  // Assigner à une variable "lumi" la lecture analogique de la broche A0
   // TO DO : Ajouter le code pour configurer la luminosité
 }
 
 void inputTemperature()
-{ 
-  // 
-  // Fonction appelée lors du mode config
+{ // Fonction appelée lors du mode config
   // TO DO : Ajouter le code pour configurer la température
 }
 
@@ -181,14 +158,14 @@ void inputButtonR()
 }
 
 void interruption_initR(void)
-{ // Fonction d'initialisation de l'interruption
+{                                                                           // Fonction d'initialisation de l'interruption
   attachInterrupt(digitalPinToInterrupt(INTERRUPTR), inputButtonR, CHANGE); // J'attache l'interruption au bouton rouge
   // TO DO : Ajouter le code pour le rebond du bouton
 }
 
 void interruption_initV(void)
-{ // Fonction d'initialisation de l'interruption
-  attachInterrupt(digitalPinToInterrupt(INTERRUPTV), inputButtonV, CHANGE); // J'attache l'interruption au bouton vert 
+{                                                                           // Fonction d'initialisation de l'interruption
+  attachInterrupt(digitalPinToInterrupt(INTERRUPTV), inputButtonV, CHANGE); // J'attache l'interruption au bouton vert
   // TO DO : Ajouter le code pour le rebond du bouton
 }
 
@@ -306,6 +283,6 @@ void setup()
 void loop()
 {
   // ajout d'un switch case avec une variable mode pour pouvoir switch entre les 4 modes
-  
+
   // TO DO : Ajouter le code pour que la station fonctionne
 }
