@@ -4,6 +4,6 @@
 Equipe du projet:
 
 - [HAAS Maxime](https://github.com/GHmysa)
-- [BECHER Matis](https://github.com/4Sitam4)
+- [BECHER Mathis](https://github.com/4Sitam4)
 - [GRASSER Alexandre](https://github.com/Xandeler)
 - [HEIDELBERGER Matteo](https://github.com/ntino67)
