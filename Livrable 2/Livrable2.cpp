@@ -13,6 +13,8 @@
 #define INTERRUPTR 3        // Définition de la broche du bouton
 #define baudrate 9600       // Définition du baudrate
 
+RTC_DS3231 rtc; // Créez un objet RTC_DS3231
+
 typedef struct variables
 {                    // Définition de la structure
   bool TEMP_AIRB;    // Activation désactivation du capteur de température de l'air
@@ -139,6 +141,21 @@ void version()
 
 void inputRTC()
 { // Fonction appelée lors du mode config
+  DateTime now = rtc.now(); 
+
+  Serial.print("Date: ");
+  Serial.print(now.month(), DEC);
+  Serial.print('/');
+  Serial.print(now.day(), DEC);
+  Serial.print('/');
+  Serial.print(now.year(), DEC);  
+  Serial.print("  Heure: ");
+  Serial.print(now.hour(), DEC);
+  Serial.print(':');
+  Serial.print(now.minute(), DEC);
+  Serial.print(':');
+  Serial.print(now.second(), DEC);
+  Serial.println();
   // TO DO : Ajouter le code pour configurer le RTC
 }
 
@@ -273,6 +290,7 @@ void checkConsistency()
 void setup()
 {
   Serial.begin(9600);      // Initialisation port série
+  rtc.begin();             // Initialisation du module RTC
   pinMode(LEDPIN, OUTPUT); // Initialisation LED
   pinMode(BUTTONV, INPUT); // Initialisation bouton
   pinMode(BUTTONR, INPUT); // Initialisation bouton
