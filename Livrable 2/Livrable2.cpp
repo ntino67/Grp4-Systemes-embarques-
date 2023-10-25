@@ -13,6 +13,7 @@
 #define INTERRUPTR 3        // Définition de la broche du bouton
 #define baudrate 9600       // Définition du baudrate
 
+
 typedef struct variables
 {                    // Définition de la structure
   bool TEMP_AIRB;    // Activation désactivation du capteur de température de l'air
@@ -30,6 +31,7 @@ typedef struct variables
   int LOG_INTERVAL;  // Définition de l'intervalle de temps entre chaque enregistrement
   int TIMEOUT;       // Définition du temps d'attente
   int FILE_MAX_SIZE; // Définition de la taille maximale du fichier
+  int revision;      // Définition du numéro de révision d'un fichier    
 } variables;         // Définition du nom de la structure
 
 
